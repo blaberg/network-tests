@@ -1,0 +1,13 @@
+version: '2'
+services:
+  iperf3:
+    build: ./iperf3-client
+    depends_on:
+      - ipsec
+    network_mode: "service:ipsec"
+  ipsec:
+    build: ./ipsec
+    privileged: true
+    network_mode: 'host'
+    
+    

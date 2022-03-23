@@ -7,7 +7,7 @@
 # docker inspect --format "{{ .NetworkSettings.IPAddress }}" iperf3-srv
 # docker run  -it --rm networkstatic/iperf3 -c <SERVER_IP>
 #
-FROM debian:latest
+FROM balenalib/intel-nuc-debian:latest
 # install binary and remove cache
 RUN apt-get update \
     && apt-get install -y iperf3 \
@@ -16,7 +16,11 @@ RUN apt-get update \
 # Expose the default iperf3 server port
 EXPOSE 5201
 
+
+
 # entrypoint allows you to pass your arguments to the container at runtime
 # very similar to a binary you would run. For example, in the following
 # docker run -it <IMAGE> --help' is like running 'iperf3 --help'
-ENTRYPOINT ["iperf3", "-s"]
+#ENTRYPOINT ["iperf3", "-u", "-c", ]
+COPY client.sh /
+CMD [ "./client.sh"]
