@@ -26,11 +26,7 @@ trap _term SIGTERM
 echo "Starting strongSwan/ipsec..."
 ipsec start --nofork "$@" &
 
-echo "Iperf3 Testing with IPsec..."
-for i in 5 10 15 20
-do
-    iperf3 -u -c 10.0.0.2 -b ${i}00m -V
-done
+iperf3 -s
 
 child=$!
 # wait for child process to exit

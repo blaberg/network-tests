@@ -18,6 +18,4 @@ COPY ipsec.conf /etc/ipsec.conf
 COPY ipsec.secrets /etc/ipsec.secrets
 RUN chmod 0600 /etc/ipsec.secrets
 
-EXPOSE 500/udp 4500/udp 5201
-
 ENTRYPOINT ["/run.sh"]

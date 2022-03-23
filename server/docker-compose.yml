@@ -4,5 +4,8 @@ services:
     build: ./ipsec
     privileged: true
     network_mode: 'host'
-  
+    ports:
+      - 500/udp
+      - 4500/udp 
+      - 5201 #iperf3
 
