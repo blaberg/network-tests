@@ -1,8 +1,13 @@
 version: '2'
 services:
+  drivers:
+    build: ./drivers
+    restart: "no"
+    # Privileged is needed to be able to install kernel modules
+    privileged: true
   ipsec:
     build: ./ipsec
     privileged: true
     network_mode: 'host'
-  
-
+    depends_on:
+      - drivers

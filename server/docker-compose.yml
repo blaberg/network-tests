@@ -1,5 +1,10 @@
 version: '2'
 services:
+  drivers:
+    build: ./drivers
+    restart: "no"
+    # Privileged is needed to be able to install kernel modules
+    privileged: true
   ipsec:
     build: ./ipsec
     privileged: true
@@ -8,4 +13,6 @@ services:
       - 500/udp
       - 4500/udp 
       - 5201 #iperf3
+    depends_on:
+      - drivers
 
