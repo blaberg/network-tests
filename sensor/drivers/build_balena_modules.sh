@@ -31,7 +31,7 @@ cd $WORKDIR
 
 # Retrieve balena kernel module header for specific device and version (production)
 url_ver="${version//+/%2B}"
-wget --no-verbose "https://files.balena-cloud.com/images/${device}/${url_ver}.prod/kernel_modules_headers.tar.gz"
+wget --no-verbose "https://files.balena-cloud.com/images/${device}/${url_ver}/kernel_modules_headers.tar.gz"
 tar xfz kernel_modules_headers.tar.gz
 rm kernel_modules_headers.tar.gz
 
@@ -58,7 +58,7 @@ make M=drivers/net modules
 popd >/dev/null
 
 # Copy kernel modules to output directory
-OUTDIR="/modules/${device}/${version}"
+OUTDIR="/modules/${device}/2.89.15"
 mkdir -p "$OUTDIR"
 pushd "$OUTDIR" >/dev/null
 # can-dev module is a required dependency for CAN modules

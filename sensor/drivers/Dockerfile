@@ -18,7 +18,7 @@ COPY build_balena_modules.sh /app/
 WORKDIR /app
 
 # Build CAN modules for each balena device and release
-RUN ./build_balena_modules.sh "intel-nuc" "2.68.1+rev1"
+RUN ./build_balena_modules.sh "intel-nuc" "2.89.15"
 
 FROM alpine:3.11
 

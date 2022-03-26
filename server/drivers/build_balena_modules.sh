@@ -31,7 +31,7 @@ cd $WORKDIR
 
 # Retrieve balena kernel module header for specific device and version (production)
 url_ver="${version//+/%2B}"
-wget --no-verbose "https://files.balena-cloud.com/images/${device}/${url_ver}.prod/kernel_modules_headers.tar.gz"
+wget --no-verbose "https://files.balena-cloud.com/images/${device}/${url_ver}/kernel_modules_headers.tar.gz"
 tar xfz kernel_modules_headers.tar.gz
 rm kernel_modules_headers.tar.gz
 
