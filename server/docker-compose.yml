@@ -17,23 +17,23 @@ services:
   #    - 500/udp
   #    - 4500/udp 
   #    - 5201 #iperf3
+  #  depends_osn:
+  #    - drivers
+  #baseline:
+  #  build: ./baseline
+  #  network_mode: 'host'
   #  depends_on:
   #    - drivers
-  baseline:
-    build: ./baseline
+  macsec:
+    build: ./macsec
+    privileged: true
     network_mode: 'host'
+    environment:
+      MAC: 1C:69:7A:AC:89:0D
+      TX_KEY: f13fee8872dac24511b2287632ec1bec
+      RX_KEY: 50b71a8ef0bd5751ea76de6d6c98c03a
+      IP: 10.1.0.2
     depends_on:
       - drivers
-  #macsec:
-  #  build: ./macsec
-  #  privileged: true
-  #  network_mode: 'host'
-  #  environment:
-  #    MAC: 1C:69:7A:AC:89:0D
-  #    TX_KEY: f13fee8872dac24511b2287632ec1bec
-  #    RX_KEY: 50b71a8ef0bd5751ea76de6d6c98c03a
-  #    IP: 10.1.0.2
-  #  depends_on:
-  #    - drivers
   
 

@@ -62,7 +62,7 @@ app.post("/server/baseline/iperf3", (req, res) => {
   console.log("Iperf3 server log");
   plot = req.files.plot;
   plot.mv(
-    "./logs/server/iperf3/plots/" +
+    "./logs/server/baseline/iperf3/plots/" +
       plot.name.split(".png")[0] +
       Date.now() +
       ".png",
@@ -75,7 +75,38 @@ app.post("/server/baseline/iperf3", (req, res) => {
   );
   log = req.files.log;
   log.mv(
-    "./logs/server/iperf3/logs/" +
+    "./logs/server/baseline/iperf3/logs/" +
+      log.name.split(".txt")[0] +
+      Date.now() +
+      ".txt",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
+app.post("/server/macsec/iperf3", (req, res) => {
+  console.log("Iperf3 server log");
+  plot = req.files.plot;
+  plot.mv(
+    "./logs/server/macsec/iperf3/plots/" +
+      plot.name.split(".png")[0] +
+      Date.now() +
+      ".png",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  log = req.files.log;
+  log.mv(
+    "./logs/server/macsec/iperf3/logs/" +
       log.name.split(".txt")[0] +
       Date.now() +
       ".txt",
