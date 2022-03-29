@@ -10,7 +10,13 @@ ip addr add $IP/24 dev macsec0
 
 echo "Setup macsec0 with ip: $IP/24."
 
-iperf3 -s
+echo "Iperf3 Testing with MACsec..."
+for i in {1..20}
+do
+    iperf3 -s -1
+done
+
+echo "Finished Iperf3 MACsec test"
 
 sleep infinity
 

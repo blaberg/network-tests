@@ -10,12 +10,14 @@ ip addr add $IP/24 dev macsec0
 
 echo "Setup macsec0 with ip: $IP/24."
 
-echo "Iperf3 Testing with IPsec..."
+echo "Iperf3 Testing with MACsec..."
 for i in {1..20}
 do
     json=$(iperf3 -u -c 10.1.0.2 -b ${i}00m -J)
     
     curl -H "Content-Type: application/json" -X POST --data-binary "{ \"bitrate\" : \"${i}00m\", \"output\" : $json }" 10.1.20.233:3000/macsec
 done
+
+echo "Iperf3 test done!"
 
 sleep infinity

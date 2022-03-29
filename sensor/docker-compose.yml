@@ -9,20 +9,26 @@ services:
       test: sh -c "[ -f /tmp/service_done ]"
       timeout: 1s
       retries: 20
-  ipsec:
-    build: ./ipsec
-    privileged: true
+  #ipsec:
+  #  build: ./ipsec
+  #  privileged: true
+  #  network_mode: 'host'
+  #  depends_on:
+  #    - drivers
+  baseline:
+    build: ./baseline
     network_mode: 'host'
     depends_on:
       - drivers
-  macsec:
-    build: ./macsec
-    network_mode: 'host'
-    privileged: true
-    environment:
-      MAC: 1C:69:7A:AC:9A:41
-      TX_KEY: 50b71a8ef0bd5751ea76de6d6c98c03a
-      RX_KEY: f13fee8872dac24511b2287632ec1bec
-      IP: 10.1.0.3
-    depends_on:
-      - drivers
+  #macsec:
+  #  build: ./macsec
+  #  network_mode: 'host'
+  #  privileged: true
+  #  environment:
+  #    MAC: 1C:69:7A:AC:9A:41
+  #    TX_KEY: 50b71a8ef0bd5751ea76de6d6c98c03a
+  #    RX_KEY: f13fee8872dac24511b2287632ec1bec
+  #    IP: 10.1.0.3
+  #  depends_on:
+  #    - drivers
+  
