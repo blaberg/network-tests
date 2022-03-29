@@ -24,6 +24,4 @@ done
 
 echo "Iperf3 test done!"
 
-
-
 sleep infinity

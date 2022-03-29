@@ -120,6 +120,37 @@ app.post("/server/macsec/iperf3", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/server/ipsec/iperf3", (req, res) => {
+  console.log("Iperf3 server log");
+  plot = req.files.plot;
+  plot.mv(
+    "./logs/server/ipsec/iperf3/plots/" +
+      plot.name.split(".png")[0] +
+      Date.now() +
+      ".png",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  log = req.files.log;
+  log.mv(
+    "./logs/server/ipsec/iperf3/logs/" +
+      log.name.split(".txt")[0] +
+      Date.now() +
+      ".txt",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
