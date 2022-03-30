@@ -61,10 +61,11 @@ app.post("/macsec", (req, res) => {
 app.post("/server/baseline/iperf3", (req, res) => {
   console.log("Iperf3 server log");
   plot = req.files.plot;
+  time = Date.now();
   plot.mv(
     "./logs/server/baseline/iperf3/plots/" +
       plot.name.split(".png")[0] +
-      Date.now() +
+      time +
       ".png",
     (err) => {
       if (err) {
@@ -77,8 +78,27 @@ app.post("/server/baseline/iperf3", (req, res) => {
   log.mv(
     "./logs/server/baseline/iperf3/logs/" +
       log.name.split(".txt")[0] +
-      Date.now() +
+      time +
       ".txt",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
+app.post("/server/baseline/sockperf", (req, res) => {
+  console.log("Sockperf server baseline log");
+  csv = req.files.csv;
+  time = Date.now();
+  csv.mv(
+    "./logs/server/baseline/sockperf/" +
+      csv.name.split(".csv")[0] +
+      time +
+      ".csv",
     (err) => {
       if (err) {
         res.sendStatus(500);
@@ -92,10 +112,11 @@ app.post("/server/baseline/iperf3", (req, res) => {
 app.post("/server/macsec/iperf3", (req, res) => {
   console.log("Iperf3 server log");
   plot = req.files.plot;
+  time = Date.now();
   plot.mv(
     "./logs/server/macsec/iperf3/plots/" +
       plot.name.split(".png")[0] +
-      Date.now() +
+      time +
       ".png",
     (err) => {
       if (err) {
@@ -108,7 +129,7 @@ app.post("/server/macsec/iperf3", (req, res) => {
   log.mv(
     "./logs/server/macsec/iperf3/logs/" +
       log.name.split(".txt")[0] +
-      Date.now() +
+      time +
       ".txt",
     (err) => {
       if (err) {
@@ -123,10 +144,11 @@ app.post("/server/macsec/iperf3", (req, res) => {
 app.post("/server/ipsec/iperf3", (req, res) => {
   console.log("Iperf3 server log");
   plot = req.files.plot;
+  time = Date.now();
   plot.mv(
     "./logs/server/ipsec/iperf3/plots/" +
       plot.name.split(".png")[0] +
-      Date.now() +
+      time +
       ".png",
     (err) => {
       if (err) {
@@ -139,7 +161,7 @@ app.post("/server/ipsec/iperf3", (req, res) => {
   log.mv(
     "./logs/server/ipsec/iperf3/logs/" +
       log.name.split(".txt")[0] +
-      Date.now() +
+      time +
       ".txt",
     (err) => {
       if (err) {

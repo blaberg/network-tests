@@ -20,5 +20,5 @@ done
 
 echo "Finished Iperf3 baseline test"
 
-#sockperf sr -i 10.0.0.2
+sockperf sr -i 10.0.0.2
 

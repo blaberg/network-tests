@@ -9,21 +9,21 @@ services:
       test: sh -c "[ -f /tmp/service_done ]"
       timeout: 1s
       retries: 20
-  ipsec:
-    build: ./ipsec
-    privileged: true
-    network_mode: 'host'
-    ports:
-      - 500/udp
-      - 4500/udp 
-      - 5201 #iperf3
-    depends_on:
-      - drivers
-  #baseline:
-  #  build: ./baseline
+  #ipsec:
+  #  build: ./ipsec
+  #  privileged: true
   #  network_mode: 'host'
+  #  ports:
+  #    - 500/udp
+  #    - 4500/udp 
+  #    - 5201 #iperf3
   #  depends_on:
   #    - drivers
+  baseline:
+    build: ./baseline
+    network_mode: 'host'
+    depends_on:
+      - drivers
   #macsec:
   #  build: ./macsec
   #  privileged: true
