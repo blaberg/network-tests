@@ -23,5 +23,18 @@ do
 done
 
 echo "Iperf3 test done!"
+echo "Starting Sockperf test"
+
+for i in {1..20}
+do 
+    sockperf ul -m 24938  -i 10.1.0.2 -t 10 --full-log log.csv
+    P1=$!
+    wait $P1
+
+    curl -F "csv=@log.csv" 10.1.20.233:3000/server/macsec/sockperf &
+    P2=$!
+    wait $P2
+
+done
 
 sleep infinity

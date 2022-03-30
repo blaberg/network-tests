@@ -24,3 +24,4 @@ done
 
 echo "Finished Iperf3 MACsec test"
 
+sockperf sr -i 10.1.0.2

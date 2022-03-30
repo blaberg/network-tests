@@ -141,6 +141,25 @@ app.post("/server/macsec/iperf3", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/server/macsec/sockperf", (req, res) => {
+  console.log("Sockperf server MACsec log");
+  csv = req.files.csv;
+  time = Date.now();
+  csv.mv(
+    "./logs/server/macsec/sockperf/" +
+      csv.name.split(".csv")[0] +
+      time +
+      ".csv",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
 app.post("/server/ipsec/iperf3", (req, res) => {
   console.log("Iperf3 server log");
   plot = req.files.plot;
