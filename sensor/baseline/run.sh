@@ -1,27 +1,44 @@
 #!/bin/bash -e
 
 echo "Iperf3 Testing with IPsec..."
-for i in {1..20}
+for j in {1..2}
 do
-    json=$(iperf3 -u -c 10.0.0.2 -b ${i}00m -J) 
+for i in {1..10}
+do
+    echo "Sending ${i}00mb..."
+    json=$(iperf3 -u -c $SERVER_IP -b ${i}00m -J) 
     
-    curl -H "Content-Type: application/json" -X POST --data-binary "{ \"bitrate\" : \"${i}00m\", \"output\" : $json }" 10.1.20.233:3000/baseline &
+    curl -H "Content-Type: application/json" -X POST --data-binary "{ \"bitrate\" : \"${i}00m\", \"output\" : $json }" http://439d-158-174-154-62.ngrok.io/baseline &
     pid=&!
     wait $pid
 
-    sleep 4
+    sleep 7
+done
 done
 
-for i in {1..20}
+echo "Starting Sockperf test"
+
+for i in {1..10}
 do 
-    sockperf ul -m 24938  -i 10.0.0.2 -t 10 --full-log log.csv
+    sockperf ul -m 24938  -i $SERVER_IP -t 10 --full-log under-load.csv &
     P1=$!
     wait $P1
 
-    curl -F "csv=@log.csv" 10.1.20.233:3000/server/baseline/sockperf &
+    curl -F "csv=@under-load.csv" http://439d-158-174-154-62.ngrok.io/server/baseline/sockperf &
     P2=$!
     wait $P2
 
 done
 
-sleep infinity
+for i in {1..10}
+do 
+    sockperf pp -m 24938  -i $SERVER_IP -t 10 --full-log ping-pong.csv &
+    P3=$!
+    wait $P3
+
+    curl -F "csv=@ping-pong.csv" http://439d-158-174-154-62.ngrok.io/server/baseline/sockperf &
+    P4=$!
+    wait $P4
+
+done
+

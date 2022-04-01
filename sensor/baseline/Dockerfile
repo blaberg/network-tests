@@ -13,4 +13,5 @@ EXPOSE 5201
 COPY run.sh /
 RUN chmod 0755 /run.sh
 
-CMD [ "./run.sh"]
+#CMD [ "./run.sh"]
+CMD ["sleep", "infinity"]

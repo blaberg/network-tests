@@ -3,9 +3,7 @@ FROM balenalib/intel-nuc-debian:latest
 RUN set -xe \
     && apt-get update \
     && apt-get install strongswan \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update \
+    && apt-get install sockperf \
     && apt-get install -y iperf3 \
     && rm -rf /var/lib/apt/lists/*
 
