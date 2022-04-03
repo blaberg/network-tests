@@ -8,14 +8,18 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/*
 
 
-COPY run.sh /run.sh
-RUN chmod 0755 /run.sh
+COPY setup.sh /setup.sh
+RUN chmod 0755 /setup.sh
 
-COPY ipsec.conf /etc/ipsec.conf
+COPY test.sh /test.sh
+RUN chmod 0755 /test.sh
 
-COPY ipsec.secrets /etc/ipsec.secrets
-RUN chmod 0600 /etc/ipsec.secrets
+#COPY ipsec.conf /etc/ipsec.conf
+
+#COPY ipsec.secrets /etc/ipsec.secrets
+#RUN chmod 0600 /etc/ipsec.secrets
 
 EXPOSE 500/udp 4500/udp 5201
 
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["/setup.sh"]
+

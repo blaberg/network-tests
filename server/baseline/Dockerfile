@@ -5,6 +5,7 @@ RUN apt-get update \
     && apt-get install -y iperf3 \
     && apt-get install sockperf \
     && apt-get install python3 \
+    && apt-get install sysstat \
     && apt-get install -y python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -16,4 +17,9 @@ EXPOSE 5201
 COPY run.sh /
 RUN chmod 0755 /run.sh
 
-CMD [ "./run.sh"]
+COPY sar.sh /
+RUN chmod 0755 /sar.sh
+
+
+#CMD [ "./run.sh"]
+CMD ["sleep", "infinity"]

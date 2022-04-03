@@ -29,10 +29,21 @@ services:
     privileged: true
     network_mode: 'host'
     environment:
-      MAC: 1C:69:7A:AC:89:0D
-      TX_KEY: f13fee8872dac24511b2287632ec1bec
-      RX_KEY: 50b71a8ef0bd5751ea76de6d6c98c03a
-      IP: 10.1.0.2
+      DEVICE_0: enp8s0
+      MAC_0: 1c:69:7a:ac:76:13
+      TX_KEY_0: 3416a97a60abd9a37aaeef8477410be9
+      RX_KEY_0: 470c1307a826fa874657348f184a38b9
+      IP_0: 10.1.0.1
+      DEVICE_2: enp9s0
+      MAC_2: 1C:69:7A:AC:9A:41
+      TX_KEY_2: b37d2a62a91c78fac284c62a465a855e
+      RX_KEY_2: b85f5296f36d987e3599a484c5fdeb22
+      IP_2: 10.4.0.11
+      DEVICE_3: enp10s0
+      MAC_3: 1C:69:7A:AC:89:0D
+      TX_KEY_3: 680b25e193cca0bf260b1f55799fbaa1
+      RX_KEY_3: 4fa9e2e084d33fede9e8383b43f9d4db
+      IP_3: 10.13.0.11
     depends_on:
       - drivers
   

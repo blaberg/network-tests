@@ -39,8 +39,10 @@ app.post("/baseline", (req, res) => {
   logs.push(req.body);
   var newData = JSON.stringify(logs);
   fs.writeFile("./logs/baseline.json", newData, (err) => {
-    // error checking
-    if (err) throw err;
+    if (err) {
+      res.sendStatus(200);
+      return;
+    }
   });
   res.sendStatus(200);
 });
@@ -60,26 +62,39 @@ app.post("/macsec", (req, res) => {
 
 app.post("/server/baseline/iperf3", (req, res) => {
   console.log("Iperf3 server log");
-  plot = req.files.plot;
   time = Date.now();
-  plot.mv(
-    "./logs/server/baseline/iperf3/plots/" +
-      plot.name.split(".png")[0] +
-      time +
-      ".png",
-    (err) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-    }
-  );
   log = req.files.log;
   log.mv(
     "./logs/server/baseline/iperf3/logs/" +
       log.name.split(".txt")[0] +
       time +
       ".txt",
+    (err) => {
+      if (err) {
+        res.sendStatus(200);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
+app.post("/server/baseline/cpu", (req, res) => {
+  console.log("CPU server log");
+  cpu = req.files.cpu;
+  time = Date.now();
+  cpu.mv(
+    "./logs/server/baseline/cpu/" + cpu.name.split(".csv")[0] + time + ".csv",
+    (err) => {
+      if (err) {
+        res.sendStatus(200);
+        return;
+      }
+    }
+  );
+  net = req.files.net;
+  net.mv(
+    "./logs/server/baseline/cpu/" + net.name.split(".csv")[0] + time + ".csv",
     (err) => {
       if (err) {
         res.sendStatus(500);
@@ -111,20 +126,7 @@ app.post("/server/baseline/sockperf", (req, res) => {
 
 app.post("/server/macsec/iperf3", (req, res) => {
   console.log("Iperf3 server log");
-  plot = req.files.plot;
   time = Date.now();
-  plot.mv(
-    "./logs/server/macsec/iperf3/plots/" +
-      plot.name.split(".png")[0] +
-      time +
-      ".png",
-    (err) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-    }
-  );
   log = req.files.log;
   log.mv(
     "./logs/server/macsec/iperf3/logs/" +
@@ -133,7 +135,7 @@ app.post("/server/macsec/iperf3", (req, res) => {
       ".txt",
     (err) => {
       if (err) {
-        res.sendStatus(500);
+        res.sendStatus(200);
         return;
       }
     }
@@ -152,6 +154,32 @@ app.post("/server/macsec/sockperf", (req, res) => {
       ".csv",
     (err) => {
       if (err) {
+        res.sendStatus(200);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
+app.post("/server/macsec/cpu", (req, res) => {
+  console.log("CPU server log");
+  cpu = req.files.cpu;
+  time = Date.now();
+  cpu.mv(
+    "./logs/server/macsec/cpu/" + cpu.name.split(".csv")[0] + time + ".csv",
+    (err) => {
+      if (err) {
+        res.sendStatus(200);
+        return;
+      }
+    }
+  );
+  net = req.files.net;
+  net.mv(
+    "./logs/server/macsec/cpu/" + net.name.split(".csv")[0] + time + ".csv",
+    (err) => {
+      if (err) {
         res.sendStatus(500);
         return;
       }
@@ -162,20 +190,7 @@ app.post("/server/macsec/sockperf", (req, res) => {
 
 app.post("/server/ipsec/iperf3", (req, res) => {
   console.log("Iperf3 server log");
-  plot = req.files.plot;
   time = Date.now();
-  plot.mv(
-    "./logs/server/ipsec/iperf3/plots/" +
-      plot.name.split(".png")[0] +
-      time +
-      ".png",
-    (err) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-    }
-  );
   log = req.files.log;
   log.mv(
     "./logs/server/ipsec/iperf3/logs/" +
@@ -192,6 +207,48 @@ app.post("/server/ipsec/iperf3", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/server/ipsec/sockperf", (req, res) => {
+  console.log("Sockperf server IPsec log");
+  csv = req.files.csv;
+  time = Date.now();
+  csv.mv(
+    "./logs/server/ipsec/sockperf/" + csv.name.split(".csv")[0] + time + ".csv",
+    (err) => {
+      if (err) {
+        res.sendStatus(200);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
+});
+
+app.post("/server/ipsec/cpu", (req, res) => {
+  console.log("CPU server log");
+  cpu = req.files.cpu;
+  time = Date.now();
+  cpu.mv(
+    "./logs/server/ipsec/cpu/" + cpu.name.split(".csv")[0] + time + ".csv",
+    (err) => {
+      if (err) {
+        res.sendStatus(200);
+        return;
+      }
+    }
+  );
+  net = req.files.net;
+  net.mv(
+    "./logs/server/ipsec/cpu/" + net.name.split(".csv")[0] + time + ".csv",
+    (err) => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+    }
+  );
+  res.sendStatus(200);
 });

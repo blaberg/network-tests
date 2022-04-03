@@ -9,8 +9,12 @@ RUN apt-get update \
 
 RUN pip3 install psrecord matplotlib tk
 
-COPY run.sh /app/run.sh
-RUN chmod 0755 /app/run.sh
+COPY setup.sh /app/setup.sh
+RUN chmod 0755 /app/setup.sh
+
+COPY test.sh /app/test.sh
+RUN chmod 0755 /app/test.sh
 
 WORKDIR /app
-CMD [ "./run.sh"]
+
+CMD [ "sleep", "infinity"]
